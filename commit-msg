@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Définition du regex
+REGEX="^(feat|chore|test|refactor)\((init|dev|deps|doc)\) .+"
+
+# Lire le message du commit
+COMMIT_MSG=$(cat "$1")
+
+# Vérification du format
+if ! echo "$COMMIT_MSG" | grep -Eq "$REGEX"; then
+  echo "❌ Erreur : Le message du commit ne respecte pas le format attendu."
+  echo "✅ Format attendu : feat|chore|test|refactor(init|dev|deps|doc) <message>"
+  echo "Exemple : feat(dev) Ajout d'une nouvelle fonctionnalité"
+  exit 1
+fi
